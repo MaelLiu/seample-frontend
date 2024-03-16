@@ -4,7 +4,7 @@ import Axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // For redirecting to another route
 import { useAuth } from './AuthContext'; // Import the useAuth hook
 import { TextField, Button, Container, Typography, Alert } from '@mui/material';
-const url = process.env.SERVER_URL;
+const url = "";
 
 function Login() {
     const [accountName, setAccountName] = useState('');

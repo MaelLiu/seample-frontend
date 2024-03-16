@@ -2,6 +2,7 @@
 import React from 'react';
 import UploadComponent from './UploadComponent';
 import DisplayUploadsComponent from './DisplayUploadsComponent';
+import DisplayAllUploads from './DisplayAllUploads'
 import AdminComment from './AdminComment';
 import { useAuth } from './AuthContext';
 import { useNavigate } from 'react-router-dom'; // If you're using react-router for navigation
@@ -36,8 +37,10 @@ function HomePage() {
         </Toolbar>
       </AppBar>
       {userRole === 'teacher' && <UploadComponent userAccountName={userAccountName}/>}
+      {userRole === 'teacher' && <DisplayUploadsComponent userAccountName={userAccountName}/>}
       {userRole === 'admin' && <AdminComment userAccountName={userAccountName}/>}
-      <DisplayUploadsComponent userAccountName={userAccountName}/>
+      {userRole === 'admin' && <DisplayAllUploads userAccountName={userAccountName}/>}
+      
     </div>
   );
 }

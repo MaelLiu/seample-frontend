@@ -4,6 +4,7 @@ import Axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // For redirecting to another route
 import { useAuth } from './AuthContext'; // Import the useAuth hook
 import { TextField, Button, Container, Typography, Alert } from '@mui/material';
+const url = process.env.SERVER_URL;
 
 function Login() {
     const [accountName, setAccountName] = useState('');
@@ -18,7 +19,7 @@ function Login() {
       setError('');
   
       try {
-        const response = await Axios.post('http://localhost:3001/login', {
+        const response = await Axios.post(url+'/login', {
           user_account: accountName, 
           user_password: password
         });

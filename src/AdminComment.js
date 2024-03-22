@@ -54,7 +54,7 @@ function AdminComment({ userAccountName }) {
         <>
           <textarea placeholder="Write a comment" value={comment} onChange={(e) => setComment(e.target.value)} />
           <input type="text" placeholder="Rating 1-10" value={rating} onChange={(e) => setRating(e.target.value)} />
-          <button onClick={handleSubmit}>Submit Comment</button>
+          <button onClick={handleSubmit}>撰寫評論</button>
         </>
       )}
     </div>

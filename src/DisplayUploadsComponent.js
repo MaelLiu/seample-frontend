@@ -57,17 +57,17 @@ function DisplayUploadsComponent({ userAccountName }) {
                 component="img"
                 height="140"
                 image={upload.photoURLs[0]} // Assuming the first image as preview
-                alt="Upload preview"
+                alt="查看上傳內容"
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                   {upload.caption}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Admin Comment: {upload.adminComment || "Not yet commented"}
+                  管理員評論： {upload.adminComment || "Not yet commented"}
                 </Typography>
                 <Typography variant="body2">
-                  Rating: {upload.rating || "Not rated"}
+                  評分： {upload.rating || "Not rated"}
                 </Typography>
               </CardContent>
             </Card>
@@ -90,7 +90,7 @@ function DisplayUploadsComponent({ userAccountName }) {
         </IconButton>
         {selectedUpload && (
           <Box sx={{ position: 'relative', width: 'auto', height: 'auto', padding: 2 }}>
-            <img src={selectedUpload.photoURLs[imageIndex]} alt="Upload" style={{ width: '100%', height: 'auto' }} />
+            <img src={selectedUpload.photoURLs[imageIndex]} alt="過往上傳照片" style={{ width: '100%', height: 'auto' }} />
             <IconButton onClick={handlePrev} sx={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', fontSize: '3rem', boxShadow: '2px 2px 10px rgba(0,0,0,1)', backgroundColor: 'black'}}>
               <ArrowBackIosNewIcon sx={{ fontSize: '2rem', color: "white"}}/>
             </IconButton>

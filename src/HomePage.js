@@ -15,7 +15,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 function HomePage() {
   const navigate = useNavigate();
-  const { userAccountName, userRole } = useAuth();
+  const { userAccountName, userRole, userEmail } = useAuth();
   const handleLogout = () => {
     // Implement your logout logic here
     console.log('Logging out...');
@@ -36,7 +36,8 @@ function HomePage() {
           </IconButton>
         </Toolbar>
       </AppBar>
-      {userRole === 'teacher' && <UploadComponent userAccountName={userAccountName}/>}
+      {userRole === 'teacher' && <UploadComponent userAccountName={userAccountName} userEmail={userEmail}/>}
+      {/* {userRole === 'teacher' && <UploadComponent userAccountName={userAccountName}/>} */}
       {userRole === 'teacher' && <DisplayUploadsComponent userAccountName={userAccountName}/>}
       {userRole === 'admin' && <AdminComment userAccountName={userAccountName}/>}
       {userRole === 'admin' && <DisplayAllUploads userAccountName={userAccountName}/>}

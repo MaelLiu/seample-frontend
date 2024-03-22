@@ -3,8 +3,16 @@ import { storage, db } from './firebase-config';
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import { collection, addDoc } from "firebase/firestore";
 import { Button, TextField, Box, CircularProgress, Typography } from '@mui/material';
+import Axios from 'axios';
 
-function UploadComponent({ userAccountName, onUploadSuccess }) {
+const integration_url = "https://hook.eu2.make.com/wrtswsezv9nshwpugfkaibx6x7iahscm";
+const headers = {
+  "Content-Type": "application/json",
+  "Custom-Header": "CustomValue",
+};
+
+function UploadComponent({ userAccountName, userEmail, onUploadSuccess }) {
+  // function UploadComponent({ userAccountName, onUploadSuccess }) {
   const [files, setFiles] = useState([]);
   const [caption, setCaption] = useState('');
   const [uploading, setUploading] = useState(false);
@@ -39,8 +47,21 @@ function UploadComponent({ userAccountName, onUploadSuccess }) {
         timestamp: new Date().toISOString(),
         adminComment: "",
       });
-      if (onUploadSuccess) onUploadSuccess();
+      if (onUploadSuccess){onUploadSuccess();}
       pic_id = 0;
+      try {
+        const response = await Axios.post(integration_url + `?email=${userEmail}`, {
+          method: 'POST',
+          headers: headers,
+        });
+        if (response.ok) {
+          console.log("Request sent successfully!");
+        } else {
+          console.error(`Failed to send request. Status code: ${response.status_code}, Response: ${await response.text()}`);
+        }
+      } catch (error) {
+        console.error("Error sending request:", error);
+      }
       setUploading(false);
       setFiles([]);
       setCaption('');
@@ -49,7 +70,7 @@ function UploadComponent({ userAccountName, onUploadSuccess }) {
 
   return (
     <Box sx={{ '& > *': { m: 1 }, width: '100%', maxWidth: 500, textAlign: 'center' }}>
-      <Typography variant="body1">Select multiple files with a single caption</Typography>
+      <Typography variant="body1">選擇複數檔案上傳</Typography>
       <TextField
         type="file"
         inputProps={{ multiple: true }}
@@ -60,12 +81,12 @@ function UploadComponent({ userAccountName, onUploadSuccess }) {
         sx={{ mb: 2 }}
       />
       <TextField
-        label="Caption"
+        label="評論"
         variant="outlined"
         fullWidth
         value={caption}
         onChange={handleCaptionChange}
-        placeholder="Enter a caption for all selected files"
+        placeholder="撰寫觀察評論（必填）"
         disabled={uploading}
       />
       <Button
